@@ -1,0 +1,37 @@
+.container
+  .user-form.col-md-4
+    = form_tag '/users/new', method: :post do
+      .form-group 
+        = label_tag 'first name'
+        = text_field_tag 'first name', nil, class: 'form-control' 
+      
+      .form-group 
+        = label_tag 'last name'  
+        = text_field_tag 'last name', nil, class: 'form-control'  
+      
+      .form-group
+        = label_tag 'email address' 
+        = text_field_tag 'email address', nil, class: 'form-control'
+      
+      .form-group
+        = label_tag 'phone number' 
+        = text_field_tag 'phone number', nil, class: 'form-control' 
+      
+      .form-group.well 
+        %span 
+          %p I am a:
+          = label_tag 'job seeker'
+          = radio_button_tag 'user_type', 'job seeker'
+        
+          = label_tag 'employer'
+          = radio_button_tag 'user_type', 'employer'
+      
+      .form-group 
+        = label_tag 'username' 
+        = text_field_tag 'username', nil, class:'form-control'
+      
+      .form-group 
+        = label_tag 'password' 
+        = text_field_tag 'password', nil, class: 'form-control'
+      
+      = submit_tag 'Sign up', class: 'btn btn-default' 

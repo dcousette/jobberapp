@@ -1,0 +1,44 @@
+.container
+  .profile-details.row
+    %h4 Your User Profile:
+    
+    .user-info.row.well
+      .col-md-2
+        %h5 Name: 
+        %h5 Email:  
+        %h5 Address:  
+        %h5 City: 
+        %h5 State:  
+        %h5 Zip code:  
+        %h5 Phone:  
+        
+      .col-md-4
+        %h5 DeShawn Cousette 
+        %h5 dcousette@gmail.com 
+        %h5 9250 Tuckerbrook Ln
+        %h5 Alpharetta
+        %h5 GA 
+        %h5 30022 
+        %h5 703-473-2449 
+      
+      .col-md-2
+        = link_to 'Update Profile', nil, class: 'btn btn-default'
+      
+  .recent-applications.row 
+    %h4.heading DeShawn's Recent Applications
+    
+    %table.table.table-striped
+      %thead 
+        %tr 
+          %td Job title 
+          %td Company name
+          %td Date applied
+      %tbody 
+        %tr 
+          %td= link_to 'Ruby Developer'
+          %td= link_to 'Mailchimp'
+          %td 2-3-16
+        %tr 
+          %td= link_to 'Web Developer'
+          %td= link_to 'Square'
+          %td 3-15-16 

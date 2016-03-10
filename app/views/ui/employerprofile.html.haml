@@ -1,0 +1,54 @@
+.container
+  .profile-details.row
+    %h4 User Profile:
+    
+    .user-info.row.well
+      .col-md-2
+        %h5 Name: 
+        %h5 Email:  
+        
+      .col-md-4
+        %h5 DeShawn Cousette 
+        %h5 dcousette@gmail.com 
+      
+      .col-md-2
+        = link_to 'Update Profile', nil, class: 'btn btn-default'
+    
+    %h4 Employer Details:
+    .user-info.row.well
+      .col-md-2 
+        %h5 Company name: 
+        %h5 Address:
+        %h5 City:
+        %h5 State:
+        %h5 Zip:
+  
+      .col-md-4
+        %h5 Test Company
+        %h5 123 Main Street
+        %h5 Atlanta
+        %h5 Georgia
+        %h5 30097
+      
+      .col-md-2
+        = link_to 'Update Company Profile', nil, class: 'btn btn-default'
+        
+  .recent-applications.row 
+    %h4.heading My Open Job Posts 
+    = link_to 'Post a new job', '#', class:'btn btn-default' 
+    
+    %table.table.table-striped
+      %thead 
+        %tr 
+          %td Job title 
+          %td Applications Received 
+          %td Status
+      %tbody 
+        %tr 
+          %td= link_to 'Ruby Developer'
+          %td= link_to 45
+          %td open
+        %tr 
+          %td= link_to 'Web Developer'
+          %td= link_to 89
+          %td open

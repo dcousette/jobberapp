@@ -1,0 +1,14 @@
+.container
+  .login-form.col-md-4
+    %h3 Log in 
+    = form_tag '/create', method: :post do 
+      .form-group 
+        = label_tag 'username' 
+        = text_field_tag 'username', nil, class:'form-control'
+      
+      .form-group 
+        = label_tag 'password' 
+        = text_field_tag 'password', nil, class: 'form-control'
+      
+      = submit_tag 'Log in', class: 'btn btn-default'
+      

@@ -1,0 +1,16 @@
+.container
+  .user-form.col-md-4
+    = form_tag '/jobs/new', method: :post do
+      .form-group 
+        = label_tag 'Job title'
+        = text_field_tag 'Job title', nil, class: 'form-control' 
+      
+      .form-group 
+        = label_tag 'Job description'  
+        = text_area_tag 'Job description', nil, rows: 5, class: 'form-control'  
+      
+      .form-group
+        = label_tag 'Salary' 
+        = text_field_tag 'Salary', nil, class: 'form-control'
+      
+      = submit_tag 'Post job', class: 'btn btn-default' 

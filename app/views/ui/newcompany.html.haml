@@ -1,0 +1,24 @@
+.container
+  .user-form.col-md-4
+    = form_tag '/companies/new', method: :post do
+      .form-group 
+        = label_tag 'Company Name'
+        = text_field_tag 'Company Name', nil, class: 'form-control' 
+      
+      .form-group 
+        = label_tag 'Address'  
+        = text_field_tag 'Address', nil, class: 'form-control'  
+      
+      .form-group
+        = label_tag 'City' 
+        = text_field_tag 'City', nil, class: 'form-control'
+      
+      .form-group
+        = label_tag 'State' 
+        = text_field_tag 'State', nil, class: 'form-control' 
+      
+      .form-group
+        = label_tag 'Zip code' 
+        = text_field_tag 'Zip code', nil, class: 'form-control' 
+      
+      = submit_tag 'Add Company', class: 'btn btn-default' 
