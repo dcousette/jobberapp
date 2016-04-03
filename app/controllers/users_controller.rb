@@ -4,5 +4,41 @@ class UsersController < ApplicationController
   end
   
   def create 
+    user = User.create(user_params)
+  
+    if user.save 
+      flash.now[:success] = "Hi {#@user.first_name}, your account has been created"    
+      redirect_to users_path  
+    else 
+      flash[:warning] = "Please enter valid user details"
+      render :new 
+    end 
+  end 
+  
+  def show
+    @user = User.find(params[:id])
+  end
+  
+  def edit
+    @user = User.find(params[:id])
+  end 
+  
+  def update
+    @user = User.find(params[:id])
+    @user.update(user_params)
+    
+    if @user.save 
+      flash.now[:success] = 'Your profile has been updated'
+      redirect_to user_path @user 
+    else 
+      flash.now[:danger] = 'Invalid entry'
+      redirect_to edit_user_path @user 
+    end 
+  end 
+  
+  private
+  
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :employer, :username)
   end 
 end
