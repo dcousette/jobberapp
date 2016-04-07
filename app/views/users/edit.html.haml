@@ -13,15 +13,6 @@
         = f.label :email 
         = f.text_field :email, class: 'form-control'
       
-      .form-group.well
-        %span 
-          %p I am a:
-          = f.label :employer, 'Job seeker'
-          = f.radio_button :employer, false
-        
-          = f.label :employer, 'Employer'
-          = f.radio_button :employer, true
-      
       .form-group 
         = f.label :username
         = f.text_field :username, class:'form-control'

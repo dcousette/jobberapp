@@ -57,6 +57,15 @@ describe UsersController do
     end 
   end
   
+  describe 'GET index' do 
+    it 'sets @users' do 
+      jim = Fabricate(:user)
+      joe = Fabricate(:user)
+      get :index
+      expect(assigns(:users)).to eq([jim, joe])
+    end 
+  end 
+  
   describe 'PUT update' do
     context 'with valid input' do 
       it 'updates the user attributes' do
@@ -90,18 +99,38 @@ describe UsersController do
       end
       
       it 'redirects to the edit user path' do 
-        jim = Fabricate(:user, first_name: 'Jimmy', last_name: 'Cousette')
+        jim = Fabricate(:user)
         put :update, user: { first_name: "", last_name: "Bond", email: "jb@bind.com", 
                       employer: false, username: 'jamesbond'}, id: jim.id
         expect(response).to redirect_to edit_user_path(jim)  
       end 
       
       it 'sets the flash error message' do 
-        jim = Fabricate(:user, first_name: 'Jimmy', last_name: 'Cousette')
+        jim = Fabricate(:user)
         put :update, user: { first_name: "", last_name: "Bond", email: "jb@bind.com", 
                       employer: false, username: 'jamesbond'}, id: jim.id
         expect(flash[:danger]).to be_present
       end 
     end 
-  end 
+  end
+  
+  describe 'DELETE destroy' do 
+    it 'deletes the user from the database' do 
+      jim = Fabricate(:user)
+      delete :destroy, id: jim.id 
+      expect(User.count).to eq(0)
+    end
+    
+    it 'redirects to the home page' do 
+      jim = Fabricate(:user)
+      delete :destroy, id: jim.id 
+      expect(response).to redirect_to root_path  
+    end 
+    
+    it 'sets the flash message' do
+      jim = Fabricate(:user)
+      delete :destroy, id: jim.id 
+      expect(flash.now[:success]).to be_present 
+    end
+  end
 end 

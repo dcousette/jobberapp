@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :setup_user, only: [:show, :edit, :update] 
+  
   def new
     @user = User.new 
   end
@@ -15,16 +17,17 @@ class UsersController < ApplicationController
     end 
   end 
   
+  def index 
+    @users = User.all 
+  end
+  
   def show
-    @user = User.find(params[:id])
   end
   
   def edit
-    @user = User.find(params[:id])
   end 
   
   def update
-    @user = User.find(params[:id])
     @user.update(user_params)
     
     if @user.save 
@@ -34,6 +37,13 @@ class UsersController < ApplicationController
       flash.now[:danger] = 'Invalid entry'
       redirect_to edit_user_path @user 
     end 
+  end
+  
+  def destroy
+    user = User.find(params[:id])
+    user.destroy
+    flash.now[:success] = '#{user.username} has been deleted'
+    redirect_to root_path
   end 
   
   private
@@ -41,4 +51,8 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :employer, :username)
   end 
+  
+  def setup_user
+    @user = User.find(params[:id])
+  end
 end
