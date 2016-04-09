@@ -1,0 +1,6 @@
+.container 
+  .error-messages
+  - if flash[:danger]
+    %p.alert.alert-danger #{flash[:danger]}
+  - elsif flash[:success]
+    %p.alert.alert-success #{flash[:success]}

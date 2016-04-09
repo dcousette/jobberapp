@@ -4,4 +4,5 @@ Fabricator(:user) do
   email 'jb@bond.com'
   employer false
   username 'jamesbond'
+  password 'password'
 end

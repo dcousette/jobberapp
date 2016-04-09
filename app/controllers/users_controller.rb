@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :setup_user, only: [:show, :edit, :update] 
+  before_action :require_login, except: [:new, :create]
   
   def new
     @user = User.new 
@@ -49,7 +50,7 @@ class UsersController < ApplicationController
   private
   
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :employer, :username)
+    params.require(:user).permit(:first_name, :last_name, :email, :employer, :username, :password)
   end 
   
   def setup_user

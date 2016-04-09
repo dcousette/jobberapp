@@ -5,22 +5,25 @@ describe UsersController do
     context 'with valid input' do 
       it 'saves a user to the database' do 
         post :create, { user: { first_name: 'Test', last_name: 'User', 
-                      email: 'test@gmail.com', employer: false, username: 'testuser' } }  
+                      email: 'test@gmail.com', employer: false, username: 'testuser', 
+                      password: 'password' } }  
         
         expect(User.count).to eq(1)
       end 
     
       it 'redirects to the user page' do 
         post :create, { user: { first_name: 'Test', last_name: 'User', 
-                      email: 'test@gmail.com', employer: false, username: 'testuser' } }  
+                      email: 'test@gmail.com', employer: false, username: 'testuser',
+                      password: 'password' } }  
         
         expect(response).to redirect_to(users_path)
       end 
       
       it 'sets the success message' do 
         post :create, { user: { first_name: 'Test', last_name: 'User', 
-                      email: 'test@gmail.com', employer: false, username: 'testuser' } }  
-        
+                      email: 'test@gmail.com', employer: false, username: 'testuser',
+                      password: 'password' } }  
+                      
         expect(flash[:success]).to be_present
       end 
     end 
@@ -51,7 +54,8 @@ describe UsersController do
   
   describe 'GET show' do 
     it 'sets @user' do 
-      jim = User.create(first_name: "Jim", last_name: "Bond", email: "jb@bind.com", employer: false, username: 'jamesbond')
+      jim = User.create(first_name: "Jim", last_name: "Bond", email: "jb@bind.com", 
+                        employer: false, username: 'jamesbond', password: 'hello')
       get :show, id: jim.id
       expect(assigns(:user).id).to eq(jim.id)
     end 
@@ -71,21 +75,21 @@ describe UsersController do
       it 'updates the user attributes' do
         jim = Fabricate(:user)
         put :update, user: { first_name: "Barry", last_name: "Bond", email: "jb@bind.com", 
-                      employer: false, username: 'jamesbond'}, id: jim.id
+                      employer: false, username: 'jamesbond', password: 'hello'}, id: jim.id
         expect(jim.reload.first_name).to eq("Barry")
       end 
       
       it 'redirects to the user page' do 
         jim = Fabricate(:user)
         put :update, user: { first_name: "Barry", last_name: "Bond", email: "jb@bind.com", 
-                      employer: false, username: 'jamesbond'}, id: jim.id
+                      employer: false, username: 'jamesbond', password: 'hello'}, id: jim.id
         expect(response).to redirect_to user_path(jim)   
       end
       
       it 'sets the update success message' do
         jim = Fabricate(:user)
         put :update, user: { first_name: "Barry", last_name: "Bond", email: "jb@bind.com", 
-                      employer: false, username: 'jamesbond'}, id: jim.id
+                      employer: false, username: 'jamesbond', password: 'hello'}, id: jim.id
         expect(flash[:success]).to be_present
       end
     end 
@@ -133,4 +137,4 @@ describe UsersController do
       expect(flash.now[:success]).to be_present 
     end
   end
-end 
+end
