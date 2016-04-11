@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     user.destroy
     flash.now[:success] = '#{user.username} has been deleted'
-    redirect_to root_path
+    redirect_to signin_path
   end 
   
   private

@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 describe UsersController do
+  describe 'GET new' do 
+    it 'sets @user' do 
+      get :new 
+      expect(assigns(:user)).to be_present
+    end 
+  end
+  
   describe 'POST create' do 
     context 'with valid input' do 
       it 'saves a user to the database' do 
@@ -53,18 +60,29 @@ describe UsersController do
   end 
   
   describe 'GET show' do 
-    it 'sets @user' do 
-      jim = User.create(first_name: "Jim", last_name: "Bond", email: "jb@bind.com", 
-                        employer: false, username: 'jamesbond', password: 'hello')
+    it 'requires the user to sign in' do 
+      jim = Fabricate(:user)
+      get :show, id: jim.id
+      expect(response).to redirect_to signin_path 
+    end
+    
+    it 'sets @user' do
+      jim = Fabricate(:user)                  
       get :show, id: jim.id
       expect(assigns(:user).id).to eq(jim.id)
     end 
   end
   
-  describe 'GET index' do 
+  describe 'GET index' do
+    it 'requires the user to sign in' do 
+      get :index
+      expect(response).to redirect_to signin_path 
+    end
+    
     it 'sets @users' do 
       jim = Fabricate(:user)
       joe = Fabricate(:user)
+      session[:user_id] = jim.id 
       get :index
       expect(assigns(:users)).to eq([jim, joe])
     end 
@@ -72,8 +90,16 @@ describe UsersController do
   
   describe 'PUT update' do
     context 'with valid input' do 
+      it 'requires the user to sign in' do 
+        jim = Fabricate(:user)
+        put :update, user: { first_name: "Barry", last_name: "Bond", email: "jb@bind.com", 
+                      employer: false, username: 'jamesbond', password: 'hello'}, id: jim.id
+        expect(response).to redirect_to signin_path 
+      end
+      
       it 'updates the user attributes' do
         jim = Fabricate(:user)
+        session[:user_id] = jim.id 
         put :update, user: { first_name: "Barry", last_name: "Bond", email: "jb@bind.com", 
                       employer: false, username: 'jamesbond', password: 'hello'}, id: jim.id
         expect(jim.reload.first_name).to eq("Barry")
@@ -81,6 +107,7 @@ describe UsersController do
       
       it 'redirects to the user page' do 
         jim = Fabricate(:user)
+        session[:user_id] = jim.id 
         put :update, user: { first_name: "Barry", last_name: "Bond", email: "jb@bind.com", 
                       employer: false, username: 'jamesbond', password: 'hello'}, id: jim.id
         expect(response).to redirect_to user_path(jim)   
@@ -88,6 +115,7 @@ describe UsersController do
       
       it 'sets the update success message' do
         jim = Fabricate(:user)
+        session[:user_id] = jim.id 
         put :update, user: { first_name: "Barry", last_name: "Bond", email: "jb@bind.com", 
                       employer: false, username: 'jamesbond', password: 'hello'}, id: jim.id
         expect(flash[:success]).to be_present
@@ -97,6 +125,7 @@ describe UsersController do
     context 'with invalid input' do
       it 'does not update the user' do 
         jim = Fabricate(:user, first_name: 'Jimmy', last_name: 'Cousette')
+        session[:user_id] = jim.id 
         put :update, user: { first_name: "", last_name: "Bond", email: "jb@bind.com", 
                       employer: false, username: 'jamesbond'}, id: jim.id
         expect(jim.reload.first_name).to eq('Jimmy')
@@ -104,6 +133,7 @@ describe UsersController do
       
       it 'redirects to the edit user path' do 
         jim = Fabricate(:user)
+        session[:user_id] = jim.id 
         put :update, user: { first_name: "", last_name: "Bond", email: "jb@bind.com", 
                       employer: false, username: 'jamesbond'}, id: jim.id
         expect(response).to redirect_to edit_user_path(jim)  
@@ -119,20 +149,29 @@ describe UsersController do
   end
   
   describe 'DELETE destroy' do 
+    it 'requires the user to sign in' do 
+      jim = Fabricate(:user)
+      delete :destroy, id: jim.id 
+      expect(response).to redirect_to signin_path
+    end
+    
     it 'deletes the user from the database' do 
       jim = Fabricate(:user)
+      session[:user_id] = jim.id
       delete :destroy, id: jim.id 
       expect(User.count).to eq(0)
     end
     
     it 'redirects to the home page' do 
       jim = Fabricate(:user)
+      session[:user_id] = jim.id
       delete :destroy, id: jim.id 
-      expect(response).to redirect_to root_path  
+      expect(response).to redirect_to signin_path  
     end 
     
     it 'sets the flash message' do
       jim = Fabricate(:user)
+      session[:user_id] = jim.id
       delete :destroy, id: jim.id 
       expect(flash.now[:success]).to be_present 
     end

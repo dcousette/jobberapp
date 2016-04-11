@@ -16,10 +16,26 @@
       .col-md-2
         = link_to 'Update Profile', edit_user_path(@user), class: 'btn btn-default'
   
-  - if @user.employer
+  - if @user.employer && @user.company == nil 
     .add-company
-      = link_to 'Create Your Company', nil, class: 'btn btn-default' 
+      = link_to 'Create Your Company', new_company_path, class: 'btn btn-default' 
+  
+  .company-details.row 
+    .company-info.row.well
+      .col-md-2
+        %h5 Company Name: 
+        %h5 City:
+        %h5 State: 
         
+      .col-md-4
+        %h5 #{@user.company.name} 
+        %h5 #{@user.company.city} 
+        %h5 #{@user.company.state}
+      
+      .col-md-2
+        = link_to 'Post a Job', nil, class: 'btn btn-default'
+    
+    
   .recent-applications.row 
     %h4.heading DeShawn's Recent Applications
     
