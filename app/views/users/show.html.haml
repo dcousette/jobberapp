@@ -20,37 +20,55 @@
     .add-company
       = link_to 'Create Your Company', new_company_path, class: 'btn btn-default' 
   
-  .company-details.row 
-    .company-info.row.well
-      .col-md-2
-        %h5 Company Name: 
-        %h5 City:
-        %h5 State: 
+  - if @user.company
+    .company-details.row 
+      .company-info.row.well
+        .col-md-2
+          %h5 Company Name: 
+          %h5 City:
+          %h5 State: 
+  
+        .col-md-4
+          %h5 #{@user.company.name} 
+          %h5 #{@user.company.city} 
+          %h5 #{@user.company.state}
         
-      .col-md-4
-        %h5 #{@user.company.name} 
-        %h5 #{@user.company.city} 
-        %h5 #{@user.company.state}
+        .col-md-2
+          = link_to 'Post a Job', new_company_job_path(current_user.company), class: 'btn btn-default'
+  
+  - if @user.employer
+    .open-jobs.row 
+      %h4 #{@user.first_name}'s Open Jobs 
+  
+      %table.table.table-striped
+        %thead 
+          %tr 
+            %td Job title 
+            %td Company name
+            %td Date applied
+        %tbody 
+        - @user.jobs.each do |job|
+          %tr 
+            %td= link_to job.title
+            %td= link_to job.company.name 
+            %td= link_to 'Date posted?'
+          
+  - else
+    .recent-applications.row 
+      %h4.heading DeShawn's Recent Applications
       
-      .col-md-2
-        = link_to 'Post a Job', nil, class: 'btn btn-default'
-    
-    
-  .recent-applications.row 
-    %h4.heading DeShawn's Recent Applications
-    
-    %table.table.table-striped
-      %thead 
-        %tr 
-          %td Job title 
-          %td Company name
-          %td Date applied
-      %tbody 
-        %tr 
-          %td= link_to 'Ruby Developer'
-          %td= link_to 'Mailchimp'
-          %td 2-3-16
-        %tr 
-          %td= link_to 'Web Developer'
-          %td= link_to 'Square'
-          %td 3-15-16 
+      %table.table.table-striped
+        %thead 
+          %tr 
+            %td Job title 
+            %td Company name
+            %td Date applied
+        %tbody 
+          %tr 
+            %td= link_to 'Ruby Developer'
+            %td= link_to 'Mailchimp'
+            %td 2-3-16
+          %tr 
+            %td= link_to 'Web Developer'
+            %td= link_to 'Square'
+            %td 3-15-16 
