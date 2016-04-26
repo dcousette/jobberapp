@@ -49,9 +49,9 @@
         %tbody 
         - @user.jobs.each do |job|
           %tr 
-            %td= link_to job.title
-            %td= link_to job.company.name 
-            %td= link_to 'Date posted?'
+            %td= link_to job.title, job 
+            %td= job.company.name
+            %td= job.created_at 
           
   - else
     .recent-applications.row 

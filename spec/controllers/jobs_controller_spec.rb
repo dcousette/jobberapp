@@ -70,4 +70,18 @@ describe JobsController do
       end 
     end 
   end 
+  
+  describe 'GET show' do 
+    it_behaves_like 'requires_sign_in' do 
+      let(:action) { get :show, id: 4}
+    end
+    
+    it 'sets @job' do 
+      jim = Fabricate(:user)
+      gig = Fabricate(:job)
+      session[:user_id] = jim.id 
+      get :show, id: gig.id 
+      expect(assigns(:job).id).to eq(gig.id)
+    end
+  end 
 end 

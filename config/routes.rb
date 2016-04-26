@@ -5,10 +5,14 @@ Rails.application.routes.draw do
   get     'signin', to: 'sessions#new'
   post    'signin', to: 'sessions#create'
   delete  'signout', to: 'sessions#destroy'
+  get     'home', to: 'static_pages#home'
+  post    'search', to: 'jobs#search'
   
   resources :users 
   
   resources :companies, only: [:new, :create] do 
-    resources :jobs 
-  end 
+    resources :jobs, only: [:new, :create] 
+  end
+  
+  resources :jobs, only: [:show]
 end
