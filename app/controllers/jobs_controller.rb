@@ -1,5 +1,5 @@
 class JobsController < ApplicationController 
-  before_action :require_login
+  before_action :require_login, except: [:search]
   
   def new 
     @company = Company.find(params[:company_id])
@@ -23,6 +23,10 @@ class JobsController < ApplicationController
   
   def show 
     @job = Job.find(params[:id])
+  end
+  
+  def search 
+    @results = Job.where(title: params[:search_term])
   end
 end 
   

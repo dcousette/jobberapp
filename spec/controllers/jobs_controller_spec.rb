@@ -83,5 +83,28 @@ describe JobsController do
       get :show, id: gig.id 
       expect(assigns(:job).id).to eq(gig.id)
     end
+  end
+  
+  describe 'GET search' do
+    it 'sets @results to an empty array if no match exists' do 
+      get :search, search_term: 'Manager'
+      expect(assigns(:results)).to eq([])
+    end 
+    
+    it 'sets @results to an array of one result for an exact match' do 
+      job1 = Fabricate(:job, title: 'Account Manager')
+      get :search, search_term: 'Account Manager'
+      expect(assigns(:results)).to eq([job1])
+    end 
+    
+    it 'sets @results to an array of multiple results for more than 1 match' do
+      work = Fabricate(:job)
+      new_job = Fabricate(:job)
+      require 'pry'; binding.pry
+      get :search, search_term: 'Account Manager'
+      expect(assigns(:results)).to eq([work, new_job])
+    end 
+    
+    it 'renders the results page'
   end 
 end 
