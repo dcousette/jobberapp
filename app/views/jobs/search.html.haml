@@ -1,15 +1,16 @@
-.container 
+.container  
   .home-content
-    .main-logo 
-      %h1.logo Jobber!
-      %h3 Find your dream job today.
-      
-    %form.form-inline
-      .form-group 
-        = label_tag 'search', "Job title, Company, or Keyword", class:'form-label'
-        = search_field_tag 'search', nil, class: 'form-control'
-        
-        = label_tag 'location', 'Location', class:'form-label'
-        = search_field_tag 'location', nil, class: 'form-control' 
-      
-        = submit_tag 'Search Jobs', class: 'btn btn-default'
+    = render 'shared/search_field'
+    
+    .search-results 
+      %h3 #{@results.count} Results found for "#{params[:search_term]}":
+      - @results.each do |result|
+        .result-section.panel.panel-default
+          .job-result.panel-heading   
+            %h5.panel-title= result.title 
+          .panel-body   
+            %h5= result.company.name 
+            %h5 Job description:
+            %p= result.description
+            = link_to  'View', job_path(result), class: 'btn btn-default' 
+            

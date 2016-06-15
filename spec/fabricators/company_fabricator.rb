@@ -1,7 +1,7 @@
 Fabricator(:company) do 
-  name 'Acme Inc'
-  address '123 Main St'
-  city 'Wickliffe'
-  state 'OH'
-  zip '44192'
+  name { Faker::Company.name }
+  address { Faker::Address.street_address }
+  city { Faker::Address.city }
+  state { Faker::Address.state }
+  zip { Faker::Address.zip }
 end

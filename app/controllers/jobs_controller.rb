@@ -8,7 +8,7 @@ class JobsController < ApplicationController
   
   def create
     company = Company.find(params[:company_id])
-    @job = company.jobs.create(title: params[:job][:title], description: params[:job][:description], 
+    @job = company.jobs.create(title: params[:job][:title].chomp, description: params[:job][:description], 
               requirements: params[:job][:requirements], salary: params[:job][:salary], 
               user_id: current_user.id)
     

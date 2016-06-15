@@ -98,13 +98,10 @@ describe JobsController do
     end 
     
     it 'sets @results to an array of multiple results for more than 1 match' do
-      work = Fabricate(:job)
-      new_job = Fabricate(:job)
-      require 'pry'; binding.pry
+      work = Fabricate(:job, title: 'Account Manager')
+      new_job = Fabricate(:job, title: 'Account Manager')
       get :search, search_term: 'Account Manager'
       expect(assigns(:results)).to eq([work, new_job])
     end 
-    
-    it 'renders the results page'
   end 
 end 
