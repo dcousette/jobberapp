@@ -1,0 +1,16 @@
+.container
+  .job-post
+    %h5= @job.title 
+    %h5= @job.company.name 
+    
+    %h5 Job Description 
+    %p= @job.description
+    
+      
+    %h5 Job Requirements 
+    %p= @job.requirements
+  
+    %h5 Salary
+    %p $#{@job.salary}
+    
+    = link_to 'Apply', nil, class: 'btn btn-primary'

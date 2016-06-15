@@ -3,4 +3,5 @@ class User < ActiveRecord::Base
   validates :employer, exclusion: { in: [nil] }
   has_secure_password validations: false 
   belongs_to :company
+  has_many :jobs 
 end
