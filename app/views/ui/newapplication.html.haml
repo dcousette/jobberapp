@@ -1,0 +1,22 @@
+.container
+  %h3 New application for '@application.job.title'
+
+  = form_tag '#', class: 'col-md-8' do
+    .form-group
+      %h5 Applicant name: John Doe
+      %h5 Applicant email: johndoe@email.com
+      %h5 Applicant phone number: 555-555-5555
+
+    .form-group
+      = label_tag :question_1, 'Why are you applying?'
+      = text_area_tag :question_1, nil, class: 'form-control'
+
+    .form-group
+      = label_tag :question_2, 'When are you available to start?'
+      = text_field_tag :question_2, nil, class: 'form-control'
+
+    .form-group
+      = label_tag :question_3, 'What do you know about us?'
+      = text_area_tag :question_3, nil, class: 'form-control'
+
+    = submit_tag 'Submit Application', class: 'btn btn-default'
