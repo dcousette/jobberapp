@@ -33,10 +33,13 @@ group :development do
   gem 'spring'
 end
 
-group :test do 
+group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'fabrication'
   gem 'faker'
-end 
+end
 
+group :production do
+  gem 'rails_12factor'
+end
