@@ -15,10 +15,11 @@
     .form-group
       = label_tag :question_2, 'What is your current availability?'
       = text_field_tag :question_2, nil, class: 'form-control'
-
-    .form-group
-      = label_tag :question_3, 'What do you know about us?'
-      = text_area_tag :question_3, nil, class: 'form-control', rows: 4
+    
+    /
+      .form-group
+        = label_tag :question_3, 'What do you know about us?'
+        = text_area_tag :question_3, nil, class: 'form-control', rows: 4
 
     .form-group
       = label_tag :question_4, 'Copy and paste your cover letter (optional):'
