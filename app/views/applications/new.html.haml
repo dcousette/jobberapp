@@ -1,0 +1,28 @@
+.container
+  %h3 Please complete your application for #{@job.title} at #{@job.company.name}:
+
+  = form_for [@job, @application], class: 'col-md-8' do |f|
+    .form-group
+      %h5 Applicant name: #{current_user.first_name} #{current_user.last_name}
+      %h5 Applicant email: #{current_user.email}
+      %h5 Applicant phone number: 555-555-5555
+
+    %br
+    .form-group
+      = f.label :interest_reason, 'Why are you interested in this position?'
+      = f.text_area :interest_reason, class: 'form-control', rows: 4
+
+    .form-group
+      = f.label :availability, 'What is your current availability?'
+      = f.text_field :availability, class: 'form-control'
+
+    .form-group
+      = f.label :cover_letter, 'Copy and paste your cover letter (optional):'
+      = f.text_area :cover_letter, class: 'form-control', rows: 4
+
+    /
+      .form-group
+        = label_tag :resume, 'Upload your resume:'
+        = file_field_tag :resume
+
+    = f.submit 'Submit Application', class: 'btn btn-default'
