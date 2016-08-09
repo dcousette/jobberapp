@@ -1,5 +1,5 @@
 .container
-  %h3 New application for '@application.job.title'
+  %h3 Please complete your application for '@application.job.title' at '@application.job.company':
 
   = form_tag '#', class: 'col-md-8' do
     .form-group
@@ -7,16 +7,26 @@
       %h5 Applicant email: johndoe@email.com
       %h5 Applicant phone number: 555-555-5555
 
+    %br
     .form-group
-      = label_tag :question_1, 'Why are you applying?'
-      = text_area_tag :question_1, nil, class: 'form-control'
+      = label_tag :question_1, 'Why are you interested in this position?'
+      = text_area_tag :question_1, nil, class: 'form-control', rows: 4
 
     .form-group
-      = label_tag :question_2, 'When are you available to start?'
+      = label_tag :question_2, 'What is your current availability?'
       = text_field_tag :question_2, nil, class: 'form-control'
+    
+    /
+      .form-group
+        = label_tag :question_3, 'What do you know about us?'
+        = text_area_tag :question_3, nil, class: 'form-control', rows: 4
 
     .form-group
-      = label_tag :question_3, 'What do you know about us?'
-      = text_area_tag :question_3, nil, class: 'form-control'
+      = label_tag :question_4, 'Copy and paste your cover letter (optional):'
+      = text_area_tag :question_4, nil, class: 'form-control', rows: 4
+
+    .form-group
+      = label_tag :resume, 'Upload your resume:'
+      = file_field_tag :resume
 
     = submit_tag 'Submit Application', class: 'btn btn-default'
