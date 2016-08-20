@@ -19,6 +19,8 @@ describe ApplicationsController do
   end
 
   describe 'POST create' do
+    after { ActionMailer::Base.deliveries.clear }
+    
     it_behaves_like 'requires_sign_in' do
       let(:action) do
         post :create, job_id: gig.id, application: {
@@ -51,6 +53,14 @@ describe ApplicationsController do
                       cover_letter: 'I am awesome.'}
         expect(response).to redirect_to job_path(gig)
       end
+
+      it 'sends a confirmation email to the user' do
+        session[:user_id] = Fabricate(:user)
+        post :create, job_id: gig.id, application: {
+                      interest_reason: 'I need a job!', availability: 'Today!',
+                      cover_letter: 'I am awesome.'}
+        expect(ActionMailer::Base.deliveries.count).to eq(1)
+      end
     end
 
     context 'with invalid input' do
@@ -75,7 +85,7 @@ describe ApplicationsController do
         post :create, job_id: gig.id, application: {
                       interest_reason: '', availability: '',
                       cover_letter: 'I am awesome.'}
-        expect(response).to redirect_to new_job_application_path 
+        expect(response).to redirect_to new_job_application_path
       end
     end
   end

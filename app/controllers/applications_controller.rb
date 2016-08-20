@@ -13,6 +13,7 @@ class ApplicationsController < ApplicationController
 
     if @application.save
       flash[:success] = 'Your application has been submitted'
+      ApplicationMailer.application_confirmation_email(current_user, @job).deliver_now
       redirect_to job_path(@job)
     else
       flash[:danger] = 'Please re-enter your application details'
