@@ -7,4 +7,10 @@ class ApplicationMailer < ActionMailer::Base
     @url = signin_url
     mail(to: @user.email, subject: 'Welcome to Jobber!')
   end
+
+  def application_confirmation_email(user, job)
+    @user = user
+    @job = job
+    mail(to: @user.email, subject: 'Thank you for applying...')
+  end
 end

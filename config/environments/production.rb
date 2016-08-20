@@ -78,11 +78,11 @@ Rails.application.configure do
     address:          ENV['MAILGUN_SMPT_SERVER'],
     user_name:        ENV['MAILGUN_SMTP_LOGIN']
     password:         ENV['MAILGUN_SMPT_PASSWORD'],
-    domain:          'app_name.heroku.com',
+    domain:          'jobberapp.heroku.com',
     authentication:  :plain
   }
 
-  config.action_mailer.default_url_options = { host: 'app_name.herokuapp.com'}
+  config.action_mailer.default_url_options = { host: 'jobberapp.herokuapp.com'}
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
